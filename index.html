@@ -227,7 +227,7 @@ function renderGrid(list){
       :`<button class="add-btn" onclick="addToCart(event,${p.id})">+</button>`;
     return `<div class="prod-card${inCart?' in-cart':''}" id="pc-${p.id}">
       <div class="badge-wrap">${badgeHtml}</div>
-      <div class="prod-img"><img src="${p.img}" style="width:80px;height:80px;object-fit:contain;">
+      <div class="prod-img">$<img src="${p.img}" style="width:80px;height:80px;object-fit:contain;">
       <div class="prod-body">
         <div class="prod-name">${p.name}</div>
         <div class="prod-sub">${p.sub}</div>
