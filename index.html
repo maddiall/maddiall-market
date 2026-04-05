@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maddial Market</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    :root{--red:#E01010;--rd:#B50D0D;--blk:#111;--wht:#fff;--gray:#f4f4f4;--gray2:#e8e8e8;--gt:#777}
+    body{font-family:'Montserrat',sans-serif;background:#f2f2f2;min-height:100vh}
+
+    .nav{background:var(--blk);padding:0 1.5rem;display:flex;align-items:center;gap:1rem;height:56px;position:sticky;top:0;z-index:100}
+    .logo-box{width:34px;height:34px;background:var(--red);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .logo-m{font-size:20px;font-weight:900;color:white;line-height:1}
+    .brand{font-size:17px;font-weight:800;color:white;letter-spacing:-.3px}
+    .brand span{color:var(--red)}
+    .search-wrap{flex:1;max-width:420px;margin:0 auto;position:relative}
+    .search-input{width:100%;padding:8px 14px 8px 36px;border:none;border-radius:6px;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:500;background:#222;color:white;outline:none}
+    .search-input::placeholder{color:#666}
+    .search-input:focus{background:#2a2a2a}
+    .search-icon{position:absolute;left:11px;top:50%;transform:translateY(-50%);width:14px;height:14px;stroke:#666;fill:none;stroke-width:2.5}
+    .nav-right{display:flex;align-items:center;gap:10px;margin-left:auto}
+    .cart-btn{display:flex;align-items:center;gap:7px;padding:7px 14px;background:var(--red);border:none;border-radius:6px;color:white;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;cursor:pointer}
+    .cart-count{background:white;color:var(--red);border-radius:50%;width:18px;height:18px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800}
+
+    .hero{background:var(--blk);padding:1.2rem 1.5rem;display:flex;align-items:center;gap:1rem;overflow:hidden;position:relative}
+    .hero::before{content:'';position:absolute;right:-60px;top:-60px;width:220px;height:220px;border-radius:50%;background:rgba(224,16,16,.12)}
+    .hero-tag{background:var(--red);color:white;font-size:9px;font-weight:800;padding:3px 8px;border-radius:3px;text-transform:uppercase;letter-spacing:1px;display:inline-block;margin-bottom:6px}
+    .hero-title{font-size:20px;font-weight:900;color:white;line-height:1.1;margin-bottom:4px}
+    .hero-title span{color:var(--red)}
+    .hero-sub{font-size:11px;color:#999;font-weight:500}
+    .hero-img{font-size:52px;margin-left:auto;flex-shrink:0}
+
+    .cats-wrap{padding:.9rem 1.2rem;display:flex;gap:8px;overflow-x:auto;background:white;border-bottom:1.5px solid var(--gray2)}
+    .cats-wrap::-webkit-scrollbar{display:none}
+    .cat-btn{padding:7px 14px;border:1.5px solid var(--gray2);border-radius:20px;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;color:var(--blk);background:white;cursor:pointer;white-space:nowrap;transition:all .15s}
+    .cat-btn:hover{border-color:var(--blk)}
+    .cat-btn.active{background:var(--blk);color:white;border-color:var(--blk)}
+    .cat-btn.active.red{background:var(--red);border-color:var(--red)}
+
+    .main{padding:1.2rem 1.2rem 2rem}
+    .section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
+    .section-title{font-size:14px;font-weight:800;color:var(--blk);text-transform:uppercase;letter-spacing:.5px}
+    .section-count{font-size:11px;color:var(--gt);font-weight:500}
+
+    .products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:10px}
+
+    .prod-card{background:white;border:1px solid var(--gray2);border-radius:10px;overflow:hidden;cursor:pointer;transition:all .18s;position:relative}
+    .prod-card:hover{border-color:#ccc;transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.08)}
+    .prod-card.in-cart{border-color:var(--red)}
+    .badge-wrap{position:absolute;top:8px;left:8px;display:flex;flex-direction:column;gap:4px;z-index:2}
+    .badge-sale{background:var(--red);color:white;font-size:9px;font-weight:800;padding:2px 7px;border-radius:3px;text-transform:uppercase}
+    .badge-new{background:var(--blk);color:white;font-size:9px;font-weight:800;padding:2px 7px;border-radius:3px;text-transform:uppercase}
+    .badge-hot{background:#FF6B00;color:white;font-size:9px;font-weight:800;padding:2px 7px;border-radius:3px;text-transform:uppercase}
+    .prod-img{height:115px;display:flex;align-items:center;justify-content:center;font-size:52px;background:var(--gray)}
+    .prod-body{padding:10px}
+    .prod-name{font-size:12px;font-weight:700;color:var(--blk);margin-bottom:2px;line-height:1.3}
+    .prod-sub{font-size:10px;color:var(--gt);font-weight:500;margin-bottom:8px}
+    .prod-foot{display:flex;align-items:center;justify-content:space-between}
+    .price-old{font-size:10px;color:#bbb;font-weight:500;text-decoration:line-through;line-height:1}
+    .price-new{font-size:15px;font-weight:900;color:var(--blk);line-height:1.2}
+    .price-new.sale{color:var(--red)}
+    .add-btn{width:30px;height:30px;border-radius:8px;border:1.5px solid var(--blk);background:white;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .15s;font-size:18px;color:var(--blk);flex-shrink:0}
+    .add-btn:hover{background:var(--blk);color:white}
+
+    .qty-ctrl{display:flex;align-items:center;border:1.5px solid var(--red);border-radius:8px;overflow:hidden}
+    .qty-btn{width:26px;height:28px;border:none;background:transparent;font-size:16px;font-weight:700;color:var(--red);cursor:pointer}
+    .qty-btn:hover{background:var(--red);color:white}
+    .qty-num{font-size:12px;font-weight:800;color:var(--blk);min-width:22px;text-align:center}
+
+    .cart-drawer{position:fixed;right:-340px;top:0;width:320px;height:100vh;background:white;border-left:1.5px solid var(--blk);z-index:200;transition:right .25s ease;display:flex;flex-direction:column;overflow:hidden}
+    .cart-drawer.open{right:0}
+    .cart-head{padding:1rem 1.2rem;border-bottom:1.5px solid var(--blk);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+    .cart-title{font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:.5px}
+    .close-btn{width:30px;height:30px;border:1.5px solid var(--blk);border-radius:6px;background:white;cursor:pointer;font-size:16px;font-weight:700}
+    .close-btn:hover{background:var(--blk);color:white}
+    .cart-items{flex:1;overflow-y:auto;padding:.8rem 1.2rem}
+    .cart-item{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--gray2);align-items:center}
+    .ci-emoji{font-size:28px;width:44px;height:44px;background:var(--gray);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .ci-info{flex:1}
+    .ci-name{font-size:12px;font-weight:700;color:var(--blk)}
+    .ci-price{font-size:12px;font-weight:800;color:var(--red)}
+    .ci-qty{font-size:10px;color:var(--gt);font-weight:500}
+    .ci-del{width:24px;height:24px;border:1px solid var(--gray2);border-radius:5px;background:white;cursor:pointer;font-size:14px;color:#bbb}
+    .ci-del:hover{border-color:var(--red);color:var(--red)}
+    .cart-foot{padding:1rem 1.2rem;border-top:1.5px solid var(--blk);flex-shrink:0}
+    .cart-total-row{display:flex;justify-content:space-between;margin-bottom:.8rem}
+    .ct-label{font-size:12px;font-weight:600;color:var(--gt)}
+    .ct-val{font-size:17px;font-weight:900;color:var(--blk)}
+    .checkout-btn{width:100%;padding:13px;background:var(--red);border:none;border-radius:8px;color:white;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:800;cursor:pointer;text-transform:uppercase;letter-spacing:.5px}
+    .checkout-btn:hover{background:var(--rd)}
+    .empty-cart{text-align:center;padding:2rem 1rem;color:var(--gt)}
+    .empty-cart div{font-size:40px;margin-bottom:8px}
+    .empty-cart p{font-size:12px;font-weight:600}
+    .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:150}
+    .overlay.show{display:block}
+    @keyframes pop{0%{transform:scale(1)}50%{transform:scale(1.15)}100%{transform:scale(1)}}
+    .popped{animation:pop .2s ease}
+  </style>
+</head>
+<body>
+
+<div class="overlay" id="overlay" onclick="closeCart()"></div>
+
+<nav class="nav">
+  <div class="logo-box"><span class="logo-m">M</span></div>
+  <div class="brand">maddial<span>market</span></div>
+  <div class="search-wrap">
+    <svg class="search-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input class="search-input" placeholder="Məhsul axtar..." id="search-inp" oninput="filterProducts()">
+  </div>
+  <div class="nav-right">
+    <button class="cart-btn" onclick="openCart()">
+      <svg width="14" height="14" fill="none" stroke="white" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      Səbət <span class="cart-count" id="cart-count">0</span>
+    </button>
+  </div>
+</nav>
+
+<div class="hero">
+  <div>
+    <div class="hero-tag">🔥 Günün təklifi</div>
+    <div class="hero-title">Təzə məhsullar<br><span>40%-ə qədər</span> endirim</div>
+    <div class="hero-sub">Hər gün yeni kampaniyalar</div>
+  </div>
+  <div class="hero-img">🛒</div>
+</div>
+
+<div class="cats-wrap">
+  <button class="cat-btn active red" onclick="filterCat('hamısı',this)">🏪 Hamısı</button>
+  <button class="cat-btn" onclick="filterCat('meyvə',this)">🍎 Meyvə-Tərəvəz</button>
+  <button class="cat-btn" onclick="filterCat('süd',this)">🥛 Süd məhsulları</button>
+  <button class="cat-btn" onclick="filterCat('ət',this)">🥩 Ət &amp; Balıq</button>
+  <button class="cat-btn" onclick="filterCat('çörək',this)">🍞 Çörək &amp; Şirniyyat</button>
+  <button class="cat-btn" onclick="filterCat('içki',this)">🧃 İçkilər</button>
+  <button class="cat-btn" onclick="filterCat('quru',this)">🌾 Quru ərzaq</button>
+  <button class="cat-btn" onclick="filterCat('təmizlik',this)">🧴 Məişət</button>
+</div>
+
+<div class="main">
+  <div class="section-head">
+    <div class="section-title">Məhsullar</div>
+    <div class="section-count" id="prod-count">36 məhsul</div>
+  </div>
+  <div class="products-grid" id="products-grid"></div>
+</div>
+
+<div class="cart-drawer" id="cart-drawer">
+  <div class="cart-head">
+    <div class="cart-title">🛒 Səbətim</div>
+    <button class="close-btn" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cart-items"></div>
+  <div class="cart-foot" id="cart-foot" style="display:none">
+    <div class="cart-total-row">
+      <span class="ct-label">Cəmi:</span>
+      <span class="ct-val" id="cart-total">₼ 0.00</span>
+    </div>
+    <button class="checkout-btn">Sifariş ver →</button>
+  </div>
+</div>
+
+<script>
+const products=[
+  {id:1,name:'Alma',sub:'Azərbaycan, 1 kq',price:1.80,old:null,emoji:'🍎',cat:'meyvə',badge:'new'},
+  {id:2,name:'Banan',sub:'Ekvador, 1 kq',price:2.20,old:3.00,emoji:'🍌',cat:'meyvə',badge:'sale'},
+  {id:3,name:'Portağal',sub:'Türkiyə, 1 kq',price:2.50,old:null,emoji:'🍊',cat:'meyvə',badge:null},
+  {id:4,name:'Üzüm',sub:'Azərbaycan, 500 q',price:3.20,old:4.50,emoji:'🍇',cat:'meyvə',badge:'sale'},
+  {id:5,name:'Limon',sub:'İspaniya, 3 ədəd',price:1.40,old:null,emoji:'🍋',cat:'meyvə',badge:null},
+  {id:6,name:'Pomidor',sub:'Yerli, 1 kq',price:1.60,old:null,emoji:'🍅',cat:'meyvə',badge:'hot'},
+  {id:7,name:'Xiyar',sub:'İstixana, 1 kq',price:1.20,old:null,emoji:'🥒',cat:'meyvə',badge:null},
+  {id:8,name:'Kəvər',sub:'Yerli, 1 dəstə',price:0.50,old:null,emoji:'🥬',cat:'meyvə',badge:null},
+  {id:9,name:'Süd',sub:'Günəş, 1 L',price:1.80,old:null,emoji:'🥛',cat:'süd',badge:null},
+  {id:10,name:'Kefir',sub:'Səfa, 500 ml',price:1.20,old:null,emoji:'🧴',cat:'süd',badge:'new'},
+  {id:11,name:'Pendir',sub:'Rus, 250 q',price:3.50,old:4.20,emoji:'🧀',cat:'süd',badge:'sale'},
+  {id:12,name:'Yoğurt',sub:'Danone, 400 q',price:2.10,old:null,emoji:'🥣',cat:'süd',badge:null},
+  {id:13,name:'Kərə yağı',sub:'President, 200 q',price:4.80,old:5.50,emoji:'🧈',cat:'süd',badge:'sale'},
+  {id:14,name:'Qaymaq',sub:'Yerli, 200 ml',price:2.30,old:null,emoji:'🍶',cat:'süd',badge:null},
+  {id:15,name:'Toyuq filesi',sub:'Azər Poul, 1 kq',price:8.50,old:10.00,emoji:'🍗',cat:'ət',badge:'sale'},
+  {id:16,name:'Mal əti',sub:'Sümüksüz, 1 kq',price:15.00,old:null,emoji:'🥩',cat:'ət',badge:null},
+  {id:17,name:'Qiymə',sub:'Qarışıq, 500 q',price:7.20,old:null,emoji:'🫙',cat:'ət',badge:'hot'},
+  {id:18,name:'Kolbasa',sub:'Cem, 400 q',price:5.50,old:6.80,emoji:'🌭',cat:'ət',badge:'sale'},
+  {id:19,name:'Çörək',sub:'Ağ, 500 q',price:0.80,old:null,emoji:'🍞',cat:'çörək',badge:null},
+  {id:20,name:'Lavaş',sub:'Təndir, 5 ədəd',price:1.20,old:null,emoji:'🫓',cat:'çörək',badge:'hot'},
+  {id:21,name:'Tort',sub:'Diplomat, 1 kq',price:12.00,old:15.00,emoji:'🎂',cat:'çörək',badge:'sale'},
+  {id:22,name:'Peçenye',sub:'Oreo, 176 q',price:2.80,old:null,emoji:'🍪',cat:'çörək',badge:'new'},
+  {id:23,name:'Şokolad',sub:'Milka, 100 q',price:3.20,old:null,emoji:'🍫',cat:'çörək',badge:null},
+  {id:24,name:'Su',sub:'Mineral, 1.5 L',price:0.60,old:null,emoji:'💧',cat:'içki',badge:null},
+  {id:25,name:'Şirə',sub:'Rich, Alma, 1 L',price:2.40,old:2.90,emoji:'🧃',cat:'içki',badge:'sale'},
+  {id:26,name:'Çay',sub:'Azərçay, 200 q',price:4.50,old:null,emoji:'🍵',cat:'içki',badge:'new'},
+  {id:27,name:'Qəhvə',sub:'Nescafe, 95 q',price:7.80,old:9.00,emoji:'☕',cat:'içki',badge:'sale'},
+  {id:28,name:'Kompot',sub:'Ev hazırlaması, 1 L',price:3.00,old:null,emoji:'🫙',cat:'içki',badge:null},
+  {id:29,name:'Düyü',sub:'Uzunboğaz, 1 kq',price:2.80,old:null,emoji:'🌾',cat:'quru',badge:null},
+  {id:30,name:'Makaron',sub:'Barilla, 500 q',price:2.20,old:2.80,emoji:'🍝',cat:'quru',badge:'sale'},
+  {id:31,name:'Şəkər',sub:'Ağ, 1 kq',price:1.50,old:null,emoji:'🍬',cat:'quru',badge:null},
+  {id:32,name:'Un',sub:'Ali sort, 2 kq',price:2.00,old:null,emoji:'🌾',cat:'quru',badge:null},
+  {id:33,name:'Yağ',sub:'Günəbaxan, 1 L',price:3.80,old:4.50,emoji:'🫙',cat:'quru',badge:'sale'},
+  {id:34,name:'Şampun',sub:'Head & Shoulders, 400 ml',price:6.50,old:8.00,emoji:'🧴',cat:'təmizlik',badge:'sale'},
+  {id:35,name:'Sabun',sub:'Dove, 90 q x3',price:3.20,old:null,emoji:'🧼',cat:'təmizlik',badge:'new'},
+  {id:36,name:'Diş pastası',sub:'Colgate, 150 ml',price:4.20,old:null,emoji:'🪥',cat:'təmizlik',badge:null},
+];
+
+let cart={};
+let activeCat='hamısı';
+let searchQ='';
+
+function renderGrid(list){
+  const g=document.getElementById('products-grid');
+  document.getElementById('prod-count').textContent=list.length+' məhsul';
+  if(!list.length){
+    g.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:2rem;color:var(--gt);font-size:13px;font-weight:600">Məhsul tapılmadı 😔</div>';
+    return;
+  }
+  g.innerHTML=list.map(p=>{
+    const inCart=cart[p.id]&&cart[p.id]>0;
+    const qty=cart[p.id]||0;
+    let badgeHtml='';
+    if(p.badge==='sale') badgeHtml='<span class="badge-sale">Endirim</span>';
+    else if(p.badge==='new') badgeHtml='<span class="badge-new">Yeni</span>';
+    else if(p.badge==='hot') badgeHtml='<span class="badge-hot">Populyar</span>';
+    const priceHtml=p.old
+      ?`<div class="price-old">&#8380; ${p.old.toFixed(2)}</div><div class="price-new sale">&#8380; ${p.price.toFixed(2)}</div>`
+      :`<div class="price-new">&#8380; ${p.price.toFixed(2)}</div>`;
+    const btnHtml=inCart
+      ?`<div class="qty-ctrl"><button class="qty-btn" onclick="changeQty(event,${p.id},-1)">&#8722;</button><span class="qty-num">${qty}</span><button class="qty-btn" onclick="changeQty(event,${p.id},1)">+</button></div>`
+      :`<button class="add-btn" onclick="addToCart(event,${p.id})">+</button>`;
+    return `<div class="prod-card${inCart?' in-cart':''}" id="pc-${p.id}">
+      <div class="badge-wrap">${badgeHtml}</div>
+      <div class="prod-img">${p.emoji}</div>
+      <div class="prod-body">
+        <div class="prod-name">${p.name}</div>
+        <div class="prod-sub">${p.sub}</div>
+        <div class="prod-foot"><div class="price-wrap">${priceHtml}</div>${btnHtml}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function getFiltered(){
+  return products.filter(p=>{
+    const catOk=activeCat==='hamısı'||p.cat===activeCat;
+    const qOk=!searchQ||p.name.toLowerCase().includes(searchQ)||p.sub.toLowerCase().includes(searchQ);
+    return catOk&&qOk;
+  });
+}
+
+function filterCat(cat,el){
+  activeCat=cat;
+  document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active','red'));
+  el.classList.add('active','red');
+  renderGrid(getFiltered());
+}
+
+function filterProducts(){
+  searchQ=document.getElementById('search-inp').value.toLowerCase();
+  renderGrid(getFiltered());
+}
+
+function addToCart(e,id){
+  e.stopPropagation();
+  cart[id]=(cart[id]||0)+1;
+  updateCartCount();
+  renderGrid(getFiltered());
+}
+
+function changeQty(e,id,delta){
+  e.stopPropagation();
+  cart[id]=(cart[id]||0)+delta;
+  if(cart[id]<=0) delete cart[id];
+  updateCartCount();
+  renderGrid(getFiltered());
+}
+
+function updateCartCount(){
+  const total=Object.values(cart).reduce((a,b)=>a+b,0);
+  const el=document.getElementById('cart-count');
+  el.textContent=total;
+  el.classList.remove('popped');
+  void el.offsetWidth;
+  el.classList.add('popped');
+}
+
+function openCart(){
+  renderCartDrawer();
+  document.getElementById('cart-drawer').classList.add('open');
+  document.getElementById('overlay').classList.add('show');
+}
+
+function closeCart(){
+  document.getElementById('cart-drawer').classList.remove('open');
+  document.getElementById('overlay').classList.remove('show');
+}
+
+function renderCartDrawer(){
+  const keys=Object.keys(cart).filter(k=>cart[k]>0);
+  const itemsEl=document.getElementById('cart-items');
+  const footEl=document.getElementById('cart-foot');
+  if(!keys.length){
+    itemsEl.innerHTML='<div class="empty-cart"><div>🛒</div><p>Səbət boşdur</p></div>';
+    footEl.style.display='none';
+    return;
+  }
+  let total=0;
+  itemsEl.innerHTML=keys.map(k=>{
+    const p=products.find(x=>x.id==k);
+    const sub=p.price*cart[k];
+    total+=sub;
+    return `<div class="cart-item">
+      <div class="ci-emoji">${p.emoji}</div>
+      <div class="ci-info">
+        <div class="ci-name">${p.name}</div>
+        <div class="ci-qty">${cart[k]} &times; &#8380; ${p.price.toFixed(2)}</div>
+        <div class="ci-price">&#8380; ${sub.toFixed(2)}</div>
+      </div>
+      <button class="ci-del" onclick="removeItem(${k})">&#10005;</button>
+    </div>`;
+  }).join('');
+  document.getElementById('cart-total').textContent='&#8380; '+total.toFixed(2);
+  footEl.style.display='block';
+}
+
+function removeItem(id){
+  delete cart[id];
+  updateCartCount();
+  renderGrid(getFiltered());
+  renderCartDrawer();
+}
+
+renderGrid(products);
+</script>
+</body>
+</html>
