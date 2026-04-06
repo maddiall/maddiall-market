@@ -71,6 +71,7 @@
     .qty-btn:hover{background:var(--red);color:white}
     .qty-num{font-size:12px;font-weight:800;color:var(--blk);min-width:22px;text-align:center}
 
+    /* CART DRAWER */
     .cart-drawer{position:fixed;right:-340px;top:0;width:320px;height:100vh;background:white;border-left:1.5px solid var(--blk);z-index:200;transition:right .25s ease;display:flex;flex-direction:column;overflow:hidden}
     .cart-drawer.open{right:0}
     .cart-head{padding:1rem 1.2rem;border-bottom:1.5px solid var(--blk);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
@@ -79,31 +80,181 @@
     .close-btn:hover{background:var(--blk);color:white}
     .cart-items{flex:1;overflow-y:auto;padding:.8rem 1.2rem}
     .cart-item{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--gray2);align-items:center}
-    .ci-emoji{font-size:28px;width:44px;height:44px;background:var(--gray);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .ci-emoji{font-size:28px;width:44px;height:44px;background:var(--gray);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden}
+    .ci-emoji img{max-width:100%;max-height:100%;object-fit:contain}
     .ci-info{flex:1}
     .ci-name{font-size:12px;font-weight:700;color:var(--blk)}
     .ci-price{font-size:12px;font-weight:800;color:var(--red)}
     .ci-qty{font-size:10px;color:var(--gt);font-weight:500}
     .ci-del{width:24px;height:24px;border:1px solid var(--gray2);border-radius:5px;background:white;cursor:pointer;font-size:14px;color:#bbb}
     .ci-del:hover{border-color:var(--red);color:var(--red)}
+
+    /* DISCOUNT CODE */
+    .discount-wrap{padding:.8rem 1.2rem;border-top:1px solid var(--gray2);flex-shrink:0}
+    .discount-row{display:flex;gap:6px}
+    .discount-input{flex:1;padding:8px 10px;border:1.5px solid var(--gray2);border-radius:6px;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:600;outline:none}
+    .discount-input:focus{border-color:var(--blk)}
+    .discount-input.success{border-color:#22c55e;color:#22c55e}
+    .discount-input.error{border-color:var(--red)}
+    .discount-apply-btn{padding:8px 12px;background:var(--blk);border:none;border-radius:6px;color:white;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap}
+    .discount-apply-btn:hover{background:#333}
+    .discount-msg{font-size:10px;font-weight:600;margin-top:5px}
+    .discount-msg.ok{color:#22c55e}
+    .discount-msg.err{color:var(--red)}
+
     .cart-foot{padding:1rem 1.2rem;border-top:1.5px solid var(--blk);flex-shrink:0}
-    .cart-total-row{display:flex;justify-content:space-between;margin-bottom:.8rem}
+    .cart-total-row{display:flex;justify-content:space-between;margin-bottom:4px}
     .ct-label{font-size:12px;font-weight:600;color:var(--gt)}
     .ct-val{font-size:17px;font-weight:900;color:var(--blk)}
-    .checkout-btn{width:100%;padding:13px;background:var(--red);border:none;border-radius:8px;color:white;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:800;cursor:pointer;text-transform:uppercase;letter-spacing:.5px}
+    .discount-line{display:none;justify-content:space-between;margin-bottom:8px}
+    .dl-label{font-size:11px;font-weight:600;color:#22c55e}
+    .dl-val{font-size:11px;font-weight:700;color:#22c55e}
+    .checkout-btn{width:100%;padding:13px;background:var(--red);border:none;border-radius:8px;color:white;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:800;cursor:pointer;text-transform:uppercase;letter-spacing:.5px;margin-top:8px}
     .checkout-btn:hover{background:var(--rd)}
     .empty-cart{text-align:center;padding:2rem 1rem;color:var(--gt)}
     .empty-cart div{font-size:40px;margin-bottom:8px}
     .empty-cart p{font-size:12px;font-weight:600}
+
     .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:150}
     .overlay.show{display:block}
     @keyframes pop{0%{transform:scale(1)}50%{transform:scale(1.15)}100%{transform:scale(1)}}
     .popped{animation:pop .2s ease}
+
+    /* PRODUCT DETAIL POPUP */
+    .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:300;align-items:center;justify-content:center;padding:1rem}
+    .popup-overlay.show{display:flex}
+    .popup{background:white;border-radius:14px;width:100%;max-width:400px;overflow:hidden;position:relative;animation:slideUp .2s ease}
+    @keyframes slideUp{from{transform:translateY(30px);opacity:0}to{transform:translateY(0);opacity:1}}
+    .popup-close{position:absolute;top:12px;right:12px;width:30px;height:30px;border:1.5px solid var(--gray2);border-radius:6px;background:white;cursor:pointer;font-size:16px;font-weight:700;z-index:2}
+    .popup-close:hover{background:var(--blk);color:white;border-color:var(--blk)}
+    .popup-img{height:200px;background:var(--gray);display:flex;align-items:center;justify-content:center}
+    .popup-img img{max-width:100%;max-height:180px;object-fit:contain}
+    .popup-body{padding:1.2rem}
+    .popup-badges{display:flex;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+    .popup-name{font-size:20px;font-weight:900;color:var(--blk);margin-bottom:4px}
+    .popup-sub{font-size:12px;color:var(--gt);font-weight:500;margin-bottom:12px}
+    .popup-desc{font-size:12px;color:#555;font-weight:500;line-height:1.6;margin-bottom:14px;padding:10px;background:var(--gray);border-radius:8px}
+    .popup-price-row{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+    .popup-price-old{font-size:13px;color:#bbb;text-decoration:line-through;font-weight:500}
+    .popup-price-new{font-size:24px;font-weight:900;color:var(--blk)}
+    .popup-price-new.sale{color:var(--red)}
+    .popup-add-btn{width:100%;padding:13px;background:var(--red);border:none;border-radius:8px;color:white;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:800;cursor:pointer;text-transform:uppercase;letter-spacing:.5px}
+    .popup-add-btn:hover{background:var(--rd)}
+    .popup-qty-ctrl{display:flex;align-items:center;justify-content:center;border:1.5px solid var(--red);border-radius:8px;overflow:hidden;width:100%}
+    .popup-qty-btn{flex:1;height:44px;border:none;background:transparent;font-size:20px;font-weight:700;color:var(--red);cursor:pointer}
+    .popup-qty-btn:hover{background:var(--red);color:white}
+    .popup-qty-num{font-size:16px;font-weight:800;color:var(--blk);min-width:40px;text-align:center}
+
+    /* ORDER FORM MODAL */
+    .order-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:400;align-items:center;justify-content:center;padding:1rem}
+    .order-overlay.show{display:flex}
+    .order-modal{background:white;border-radius:14px;width:100%;max-width:420px;overflow:hidden;animation:slideUp .2s ease;max-height:90vh;overflow-y:auto}
+    .order-head{padding:1.2rem 1.4rem;border-bottom:1.5px solid var(--blk);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:white;z-index:1}
+    .order-title{font-size:15px;font-weight:800;text-transform:uppercase;letter-spacing:.5px}
+    .order-body{padding:1.2rem 1.4rem}
+    .order-summary{background:var(--gray);border-radius:10px;padding:10px 12px;margin-bottom:16px}
+    .order-summary-title{font-size:11px;font-weight:700;color:var(--gt);text-transform:uppercase;margin-bottom:8px}
+    .order-summary-item{display:flex;justify-content:space-between;font-size:12px;font-weight:600;color:var(--blk);padding:3px 0}
+    .order-summary-total{display:flex;justify-content:space-between;font-size:14px;font-weight:900;color:var(--blk);padding-top:8px;margin-top:6px;border-top:1px solid var(--gray2)}
+    .order-summary-discount{display:none;justify-content:space-between;font-size:12px;font-weight:700;color:#22c55e;padding:3px 0}
+    .form-group{margin-bottom:14px}
+    .form-label{font-size:11px;font-weight:700;color:var(--blk);text-transform:uppercase;letter-spacing:.3px;margin-bottom:5px;display:block}
+    .form-input{width:100%;padding:10px 12px;border:1.5px solid var(--gray2);border-radius:8px;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:500;outline:none;transition:border .15s}
+    .form-input:focus{border-color:var(--blk)}
+    .form-input.err{border-color:var(--red)}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .submit-order-btn{width:100%;padding:14px;background:var(--red);border:none;border-radius:8px;color:white;font-family:'Montserrat',sans-serif;font-size:14px;font-weight:800;cursor:pointer;text-transform:uppercase;letter-spacing:.5px;margin-top:6px}
+    .submit-order-btn:hover{background:var(--rd)}
+
+    /* SUCCESS */
+    .success-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:500;align-items:center;justify-content:center;padding:1rem}
+    .success-overlay.show{display:flex}
+    .success-modal{background:white;border-radius:14px;width:100%;max-width:340px;padding:2rem;text-align:center;animation:slideUp .2s ease}
+    .success-icon{font-size:60px;margin-bottom:12px}
+    .success-title{font-size:18px;font-weight:900;color:var(--blk);margin-bottom:6px}
+    .success-sub{font-size:12px;color:var(--gt);font-weight:500;margin-bottom:20px;line-height:1.6}
+    .success-close-btn{padding:12px 32px;background:var(--red);border:none;border-radius:8px;color:white;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:800;cursor:pointer}
   </style>
 </head>
 <body>
 
 <div class="overlay" id="overlay" onclick="closeCart()"></div>
+
+<!-- PRODUCT DETAIL POPUP -->
+<div class="popup-overlay" id="popup-overlay" onclick="closePopup(event)">
+  <div class="popup" id="popup">
+    <button class="popup-close" onclick="closePopupDirect()">✕</button>
+    <div class="popup-img"><img id="popup-img" src="" alt=""></div>
+    <div class="popup-body">
+      <div class="popup-badges" id="popup-badges"></div>
+      <div class="popup-name" id="popup-name"></div>
+      <div class="popup-sub" id="popup-sub"></div>
+      <div class="popup-desc" id="popup-desc"></div>
+      <div class="popup-price-row">
+        <div class="popup-price-old" id="popup-price-old"></div>
+        <div class="popup-price-new" id="popup-price-new"></div>
+      </div>
+      <div id="popup-btn-wrap"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ORDER FORM MODAL -->
+<div class="order-overlay" id="order-overlay">
+  <div class="order-modal">
+    <div class="order-head">
+      <div class="order-title">📦 Sifariş ver</div>
+      <button class="close-btn" onclick="closeOrder()">✕</button>
+    </div>
+    <div class="order-body">
+      <div class="order-summary">
+        <div class="order-summary-title">Sifariş icmalı</div>
+        <div id="order-summary-items"></div>
+        <div class="order-summary-discount" id="order-discount-line">
+          <span>Endirim kodu</span>
+          <span id="order-discount-val"></span>
+        </div>
+        <div class="order-summary-total">
+          <span>Cəmi</span>
+          <span id="order-total-val"></span>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Ad</label>
+          <input class="form-input" id="f-name" placeholder="Adınız">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Soyad</label>
+          <input class="form-input" id="f-surname" placeholder="Soyadınız">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Telefon</label>
+        <input class="form-input" id="f-phone" placeholder="+994 XX XXX XX XX" type="tel">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Ünvan</label>
+        <input class="form-input" id="f-address" placeholder="Çatdırılma ünvanı">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Qeyd (ixtiyari)</label>
+        <input class="form-input" id="f-note" placeholder="Əlavə qeyd...">
+      </div>
+      <button class="submit-order-btn" onclick="submitOrder()">Sifarişi təsdiqlə →</button>
+    </div>
+  </div>
+</div>
+
+<!-- SUCCESS MODAL -->
+<div class="success-overlay" id="success-overlay">
+  <div class="success-modal">
+    <div class="success-icon">🎉</div>
+    <div class="success-title">Sifariş qəbul edildi!</div>
+    <div class="success-sub">Tezliklə sizinlə əlaqə saxlayacağıq.<br>Alış-verişiniz üçün təşəkkür edirik!</div>
+    <button class="success-close-btn" onclick="closeSuccess()">Əla!</button>
+  </div>
+</div>
 
 <nav class="nav">
   <div class="logo-box"><span class="logo-m">M</span></div>
@@ -154,58 +305,101 @@
     <button class="close-btn" onclick="closeCart()">✕</button>
   </div>
   <div class="cart-items" id="cart-items"></div>
+  <div id="discount-section" style="display:none">
+    <div class="discount-wrap">
+      <div class="discount-row">
+        <input class="discount-input" id="discount-inp" placeholder="Endirim kodu...">
+        <button class="discount-apply-btn" onclick="applyDiscount()">Tətbiq et</button>
+      </div>
+      <div class="discount-msg" id="discount-msg"></div>
+    </div>
+  </div>
   <div class="cart-foot" id="cart-foot" style="display:none">
     <div class="cart-total-row">
-      <span class="ct-label">Cəmi:</span>
-      <span class="ct-val" id="cart-total">₼ 0.00</span>
+      <span class="ct-label">Ara cəm:</span>
+      <span class="ct-val" id="cart-subtotal">₼ 0.00</span>
     </div>
-    <button class="checkout-btn">Sifariş ver →</button>
+    <div class="discount-line" id="discount-line">
+      <span class="dl-label">🏷️ Endirim:</span>
+      <span class="dl-val" id="discount-amount-show"></span>
+    </div>
+    <div class="cart-total-row" style="margin-top:4px">
+      <span class="ct-label" style="font-weight:800;color:var(--blk)">Cəmi:</span>
+      <span class="ct-val" id="cart-total" style="color:var(--red)">₼ 0.00</span>
+    </div>
+    <button class="checkout-btn" onclick="openOrder()">Sifariş ver →</button>
   </div>
 </div>
 
 <script>
 const products=[
-  {id:1,name:'Alma',sub:'Azərbaycan, 1 kq',price:1.80,old:null,img:'https://png.pngtree.com/png-vector/20231017/ourmid/pngtree-3d-red-apple-png-with-green-leaf-png-image_10201408.png',cat:'meyvə',badge:'new'},
-  {id:2,name:'Banan',sub:'Ekvador, 1 kq',price:2.20,old:3.00,img:'https://pngimg.com/uploads/banana/banana_PNG842.png',cat:'meyvə',badge:'sale'},
-  {id:3,name:'Portağal',sub:'Türkiyə, 1 kq',price:2.50,old:null,img:'https://pngimg.com/uploads/orange/orange_PNG784.png',cat:'meyvə',badge:null},
-  {id:4,name:'Üzüm',sub:'Azərbaycan, 500 q',price:3.20,old:4.50,img:'https://png.pngtree.com/png-clipart/20250104/original/pngtree-delicious-black-grapes-png-image_20004046.png',cat:'meyvə',badge:'sale'},
-  {id:5,name:'Limon',sub:'İspaniya, 3 ədəd',price:1.40,old:null,img:'https://pngimg.com/uploads/lemon/lemon_PNG25198.png',cat:'meyvə',badge:null},
-  {id:6,name:'Pomidor',sub:'Yerli, 1 kq',price:1.60,old:null,img:'https://png.pngtree.com/png-vector/20230903/ourmid/pngtree-fruit-fresh-tomato-png-image_9959799.png',cat:'meyvə',badge:'hot'},
-  {id:7,name:'Xiyar',sub:'İstixana, 1 kq',price:1.20,old:null,img:'https://pngimg.com/uploads/cucumber/cucumber_PNG84252.png',cat:'meyvə',badge:null},
-  {id:8,name:'Kəvər',sub:'Yerli, 1 dəstə',price:0.50,old:null,img:'https://pngimg.com/uploads/lettuce/lettuce_PNG84.png',cat:'meyvə',badge:null},
-  {id:9,name:'Süd',sub:'Günəş, 1 L',price:1.80,old:null,img:'https://pngimg.com/uploads/milk/milk_PNG12724.png',cat:'süd',badge:null},
-  {id:10,name:'Kefir',sub:'Səfa, 500 ml',price:1.20,old:null,img:'https://pngimg.com/uploads/milk/milk_PNG12734.png',cat:'süd',badge:'new'},
-  {id:11,name:'Pendir',sub:'Rus, 250 q',price:3.50,old:4.20,img:'https://pngimg.com/uploads/cheese/cheese_PNG25335.png',cat:'süd',badge:'sale'},
-  {id:12,name:'Yoğurt',sub:'Danone, 400 q',price:2.10,old:null,img:'https://pngimg.com/uploads/yogurt/yogurt_PNG15.png',cat:'süd',badge:null},
-  {id:13,name:'Kərə yağı',sub:'President, 200 q',price:4.80,old:5.50,img:'https://pngimg.com/uploads/butter/butter_PNG73.png',cat:'süd',badge:'sale'},
-  {id:14,name:'Qaymaq',sub:'Yerli, 200 ml',price:2.30,old:null,img:'https://pngimg.com/uploads/milk/milk_PNG12727.png',cat:'süd',badge:null},
-  {id:15,name:'Toyuq filesi',sub:'Azər Poul, 1 kq',price:8.50,old:10.00,img:'https://pngimg.com/uploads/chicken/chicken_PNG13405.png',cat:'ət',badge:'sale'},
-  {id:16,name:'Mal əti',sub:'Sümüksüz, 1 kq',price:15.00,old:null,img:'https://pngimg.com/uploads/beef/beef_PNG58.png',cat:'ət',badge:null},
-  {id:17,name:'Qiymə',sub:'Qarışıq, 500 q',price:7.20,old:null,img:'https://pngimg.com/uploads/beef/beef_PNG60.png',cat:'ət',badge:'hot'},
-  {id:18,name:'Kolbasa',sub:'Cem, 400 q',price:5.50,old:6.80,img:'https://pngimg.com/uploads/sausage/sausage_PNG23.png',cat:'ət',badge:'sale'},
-  {id:19,name:'Çörək',sub:'Ağ, 500 q',price:0.80,old:null,img:'https://pngimg.com/uploads/bread/bread_PNG2276.png',cat:'çörək',badge:null},
-  {id:20,name:'Lavaş',sub:'Təndir, 5 ədəd',price:1.20,old:null,img:'https://pngimg.com/uploads/bread/bread_PNG2279.png',cat:'çörək',badge:'hot'},
-  {id:21,name:'Tort',sub:'Diplomat, 1 kq',price:12.00,old:15.00,img:'https://pngimg.com/uploads/cake/cake_PNG13539.png',cat:'çörək',badge:'sale'},
-  {id:22,name:'Peçenye',sub:'Oreo, 176 q',price:2.80,old:null,img:'https://pngimg.com/uploads/cookie/cookie_PNG13655.png',cat:'çörək',badge:'new'},
-  {id:23,name:'Şokolad',sub:'Milka, 100 q',price:3.20,old:null,img:'https://pngimg.com/uploads/chocolate/chocolate_PNG5089.png',cat:'çörək',badge:null},
-  {id:24,name:'Su',sub:'Mineral, 1.5 L',price:0.60,old:null,img:'https://pngimg.com/uploads/water_bottle/water_bottle_PNG98.png',cat:'içki',badge:null},
-  {id:25,name:'Şirə',sub:'Rich, Alma, 1 L',price:2.40,old:2.90,img:'https://pngimg.com/uploads/juice/juice_PNG77.png',cat:'içki',badge:'sale'},
-  {id:26,name:'Çay',sub:'Azərçay, 200 q',price:4.50,old:null,img:'https://pngimg.com/uploads/tea/tea_PNG16862.png',cat:'içki',badge:'new'},
-  {id:27,name:'Qəhvə',sub:'Nescafe, 95 q',price:7.80,old:9.00,img:'https://pngimg.com/uploads/coffee/coffee_PNG10835.png',cat:'içki',badge:'sale'},
-  {id:28,name:'Kompot',sub:'Ev hazırlaması, 1 L',price:3.00,old:null,img:'https://pngimg.com/uploads/juice/juice_PNG85.png',cat:'içki',badge:null},
-  {id:29,name:'Düyü',sub:'Uzunboğaz, 1 kq',price:2.80,old:null,img:'https://pngimg.com/uploads/rice/rice_PNG7645.png',cat:'quru',badge:null},
-  {id:30,name:'Makaron',sub:'Barilla, 500 q',price:2.20,old:2.80,img:'https://pngimg.com/uploads/pasta/pasta_PNG23.png',cat:'quru',badge:'sale'},
-  {id:31,name:'Şəkər',sub:'Ağ, 1 kq',price:1.50,old:null,img:'https://pngimg.com/uploads/sugar/sugar_PNG15.png',cat:'quru',badge:null},
-  {id:32,name:'Un',sub:'Ali sort, 2 kq',price:2.00,old:null,img:'https://pngimg.com/uploads/flour/flour_PNG18.png',cat:'quru',badge:null},
-  {id:33,name:'Yağ',sub:'Günəbaxan, 1 L',price:3.80,old:4.50,img:'https://pngimg.com/uploads/olive_oil/olive_oil_PNG36.png',cat:'quru',badge:'sale'},
-  {id:34,name:'Şampun',sub:'Head & Shoulders, 400 ml',price:6.50,old:8.00,img:'https://pngimg.com/uploads/shampoo/shampoo_PNG2.png',cat:'təmizlik',badge:'sale'},
-  {id:35,name:'Sabun',sub:'Dove, 90 q x3',price:3.20,old:null,img:'https://pngimg.com/uploads/soap/soap_PNG27.png',cat:'təmizlik',badge:'new'},
-  {id:36,name:'Diş pastası',sub:'Colgate, 150 ml',price:4.20,old:null,img:'https://pngimg.com/uploads/toothpaste/toothpaste_PNG31.png',cat:'təmizlik',badge:null},
+  {id:1,name:'Alma',sub:'Azərbaycan, 1 kq',desc:'Təzə Azərbaycan alması. Vitamin C və antioksidanlarla zəngindir. Hər gün çatdırılır.',price:1.80,old:null,img:'https://png.pngtree.com/png-vector/20231017/ourmid/pngtree-3d-red-apple-png-with-green-leaf-png-image_10201408.png',cat:'meyvə',badge:'new'},
+  {id:2,name:'Banan',sub:'Ekvador, 1 kq',desc:'Ekvadordan gətirilən premium banan. Enerji mənbəyi, potasiumla zəngindir.',price:2.20,old:3.00,img:'https://pngimg.com/uploads/banana/banana_PNG842.png',cat:'meyvə',badge:'sale'},
+  {id:3,name:'Portağal',sub:'Türkiyə, 1 kq',desc:'Şirəli Türkiyə portağalı. C vitamini ilə doludur, immunitet üçün əladır.',price:2.50,old:null,img:'https://pngimg.com/uploads/orange/orange_PNG784.png',cat:'meyvə',badge:null},
+  {id:4,name:'Üzüm',sub:'Azərbaycan, 500 q',desc:'Yerli qaraüzüm. Antioxidanlarla zəngin, şirin və ətirlidir.',price:3.20,old:4.50,img:'https://png.pngtree.com/png-clipart/20250104/original/pngtree-delicious-black-grapes-png-image_20004046.png',cat:'meyvə',badge:'sale'},
+  {id:5,name:'Limon',sub:'İspaniya, 3 ədəd',desc:'Təzə İspaniya limonu. Çay, salatlar və yeməklər üçün idealdır.',price:1.40,old:null,img:'https://pngimg.com/uploads/lemon/lemon_PNG25198.png',cat:'meyvə',badge:null},
+  {id:6,name:'Pomidor',sub:'Yerli, 1 kq',desc:'Yerli pomidor, günəşdə yetişib. Salatlar və yeməklər üçün mükəmməldir.',price:1.60,old:null,img:'https://png.pngtree.com/png-vector/20230903/ourmid/pngtree-fruit-fresh-tomato-png-image_9959799.png',cat:'meyvə',badge:'hot'},
+  {id:7,name:'Xiyar',sub:'İstixana, 1 kq',desc:'İstixana xiyarı, hər zaman təzə. Dieta üçün əla seçimdir.',price:1.20,old:null,img:'https://pngimg.com/uploads/cucumber/cucumber_PNG84252.png',cat:'meyvə',badge:null},
+  {id:8,name:'Kəvər',sub:'Yerli, 1 dəstə',desc:'Təzə yerli kəvər. Salatlar üçün vacib olmayan yox, mükəmməl inqrediyentdir.',price:0.50,old:null,img:'https://pngimg.com/uploads/lettuce/lettuce_PNG84.png',cat:'meyvə',badge:null},
+  {id:9,name:'Süd',sub:'Günəş, 1 L',desc:'Günəş markalı pastörizə süd. Zülal və kalsiumla zəngindir.',price:1.80,old:null,img:'https://pngimg.com/uploads/milk/milk_PNG12724.png',cat:'süd',badge:null},
+  {id:10,name:'Kefir',sub:'Səfa, 500 ml',desc:'Səfa kefiri, probiotiklərlə zəngindir. Həzm sisteminə faydalıdır.',price:1.20,old:null,img:'https://pngimg.com/uploads/milk/milk_PNG12734.png',cat:'süd',badge:'new'},
+  {id:11,name:'Pendir',sub:'Rus, 250 q',desc:'Rus pendiri, klassik dadı ilə. Sendviç və yeməklər üçün əladır.',price:3.50,old:4.20,img:'https://pngimg.com/uploads/cheese/cheese_PNG25335.png',cat:'süd',badge:'sale'},
+  {id:12,name:'Yoğurt',sub:'Danone, 400 q',desc:'Danone yoğurtu, kremli və dadlıdır. Səhər yeməyi üçün mükəmməldir.',price:2.10,old:null,img:'https://pngimg.com/uploads/yogurt/yogurt_PNG15.png',cat:'süd',badge:null},
+  {id:13,name:'Kərə yağı',sub:'President, 200 q',desc:'President markalı premium kərə yağı. Fransız keyfiyyəti, zəngin dad.',price:4.80,old:5.50,img:'https://pngimg.com/uploads/butter/butter_PNG73.png',cat:'süd',badge:'sale'},
+  {id:14,name:'Qaymaq',sub:'Yerli, 200 ml',desc:'Yerli qaymaq, zəngin və kremlidir. Tort və desert üçün idealdır.',price:2.30,old:null,img:'https://pngimg.com/uploads/milk/milk_PNG12727.png',cat:'süd',badge:null},
+  {id:15,name:'Toyuq filesi',sub:'Azər Poul, 1 kq',desc:'Azər Poul toyuq filesi, sümüksüz və təzədir. Pəhriz yeməkləri üçün əladır.',price:8.50,old:10.00,img:'https://pngimg.com/uploads/chicken/chicken_PNG13405.png',cat:'ət',badge:'sale'},
+  {id:16,name:'Mal əti',sub:'Sümüksüz, 1 kq',desc:'Premium sümüksüz mal əti. Qızartma və güveç üçün mükəmməldir.',price:15.00,old:null,img:'https://pngimg.com/uploads/beef/beef_PNG58.png',cat:'ət',badge:null},
+  {id:17,name:'Qiymə',sub:'Qarışıq, 500 q',desc:'Mal və toyuq qarışığı qiymə. Köftə, pizza və makaron üçün idealdır.',price:7.20,old:null,img:'https://pngimg.com/uploads/beef/beef_PNG60.png',cat:'ət',badge:'hot'},
+  {id:18,name:'Kolbasa',sub:'Cem, 400 q',desc:'Cem markalı kolbasa. Qəlyanaltı və sendviç üçün əla seçimdir.',price:5.50,old:6.80,img:'https://pngimg.com/uploads/sausage/sausage_PNG23.png',cat:'ət',badge:'sale'},
+  {id:19,name:'Çörək',sub:'Ağ, 500 q',desc:'Gündəlik təzə ağ çörək. Hər gün səhər çatdırılır.',price:0.80,old:null,img:'https://pngimg.com/uploads/bread/bread_PNG2276.png',cat:'çörək',badge:null},
+  {id:20,name:'Lavaş',sub:'Təndir, 5 ədəd',desc:'Təndirdə bişirilmiş lavaş. Dürüm və qızartma üçün mükəmməldir.',price:1.20,old:null,img:'https://pngimg.com/uploads/bread/bread_PNG2279.png',cat:'çörək',badge:'hot'},
+  {id:21,name:'Tort',sub:'Diplomat, 1 kq',desc:'Diplomat tortu, məşhur resept. Ad günləri üçün sifarişlə də hazırlanır.',price:12.00,old:15.00,img:'https://pngimg.com/uploads/cake/cake_PNG13539.png',cat:'çörək',badge:'sale'},
+  {id:22,name:'Peçenye',sub:'Oreo, 176 q',desc:'Oreo peçenyesi, klassik şokoladlı. Süd ilə birlikdə dadlıdır.',price:2.80,old:null,img:'https://pngimg.com/uploads/cookie/cookie_PNG13655.png',cat:'çörək',badge:'new'},
+  {id:23,name:'Şokolad',sub:'Milka, 100 q',desc:'Milka şokoladı, Avropanın ən sevilen şokoladıdır. Fındıqlı növü də var.',price:3.20,old:null,img:'https://pngimg.com/uploads/chocolate/chocolate_PNG5089.png',cat:'çörək',badge:null},
+  {id:24,name:'Su',sub:'Mineral, 1.5 L',desc:'Təmiz mineral su. Gündəlik su ehtiyacınızı qarşılamaq üçün idealdır.',price:0.60,old:null,img:'https://pngimg.com/uploads/water_bottle/water_bottle_PNG98.png',cat:'içki',badge:null},
+  {id:25,name:'Şirə',sub:'Rich, Alma, 1 L',desc:'Rich alma şirəsi, 100% təbii. Uşaqlar üçün sağlam içkidir.',price:2.40,old:2.90,img:'https://pngimg.com/uploads/juice/juice_PNG77.png',cat:'içki',badge:'sale'},
+  {id:26,name:'Çay',sub:'Azərçay, 200 q',desc:'Azərçay, Lənkəranın ən məşhur çayı. Hər gün içmək üçün əladır.',price:4.50,old:null,img:'https://pngimg.com/uploads/tea/tea_PNG16862.png',cat:'içki',badge:'new'},
+  {id:27,name:'Qəhvə',sub:'Nescafe, 95 q',desc:'Nescafe klassik qəhvə. Sürətli hazırlanır, güclü dadı var.',price:7.80,old:9.00,img:'https://pngimg.com/uploads/coffee/coffee_PNG10835.png',cat:'içki',badge:'sale'},
+  {id:28,name:'Kompot',sub:'Ev hazırlaması, 1 L',desc:'Ev üsulunda hazırlanmış kompot. Qida boyasız, tam təbiidir.',price:3.00,old:null,img:'https://pngimg.com/uploads/juice/juice_PNG85.png',cat:'içki',badge:null},
+  {id:29,name:'Düyü',sub:'Uzunboğaz, 1 kq',desc:'Uzunboğaz düyü, plovlar üçün ən yaxşı seçimdir. Tam yetişmiş.',price:2.80,old:null,img:'https://pngimg.com/uploads/rice/rice_PNG7645.png',cat:'quru',badge:null},
+  {id:30,name:'Makaron',sub:'Barilla, 500 q',desc:'Barilla İtalyan makaronu. Al dente bişirmək üçün idealdır.',price:2.20,old:2.80,img:'https://pngimg.com/uploads/pasta/pasta_PNG23.png',cat:'quru',badge:'sale'},
+  {id:31,name:'Şəkər',sub:'Ağ, 1 kq',desc:'Ağ kristal şəkər. Çay, qəhvə və bişirmə üçün istifadə olunur.',price:1.50,old:null,img:'https://pngimg.com/uploads/sugar/sugar_PNG15.png',cat:'quru',badge:null},
+  {id:32,name:'Un',sub:'Ali sort, 2 kq',desc:'Ali sort buğda unu. Çörək, tort və digər məmulatlar üçün əladır.',price:2.00,old:null,img:'https://pngimg.com/uploads/flour/flour_PNG18.png',cat:'quru',badge:null},
+  {id:33,name:'Yağ',sub:'Günəbaxan, 1 L',desc:'Soyuq sıxım günəbaxan yağı. Qızartma və salat üçün uyğundur.',price:3.80,old:4.50,img:'https://pngimg.com/uploads/olive_oil/olive_oil_PNG36.png',cat:'quru',badge:'sale'},
+  {id:34,name:'Şampun',sub:'Head & Shoulders, 400 ml',desc:'Head & Shoulders kepəyə qarşı şampun. Saçı təmizləyir və qoruyur.',price:6.50,old:8.00,img:'https://pngimg.com/uploads/shampoo/shampoo_PNG2.png',cat:'təmizlik',badge:'sale'},
+  {id:35,name:'Sabun',sub:'Dove, 90 q x3',desc:'Dove nəmləndirici sabun, 3-lü paket. Dərini qoruyur və nəmləndirir.',price:3.20,old:null,img:'https://pngimg.com/uploads/soap/soap_PNG27.png',cat:'təmizlik',badge:'new'},
+  {id:36,name:'Diş pastası',sub:'Colgate, 150 ml',desc:'Colgate diş pastası, ağardıcı formula. Diş sağlamlığını qoruyur.',price:4.20,old:null,img:'https://pngimg.com/uploads/toothpaste/toothpaste_PNG31.png',cat:'təmizlik',badge:null},
 ];
-  
+
+const DISCOUNT_CODES={
+  'MADDI10':{type:'percent',val:10,label:'10% endirim'},
+  'MADDI20':{type:'percent',val:20,label:'20% endirim'},
+  'SAVE5':{type:'fixed',val:5,label:'₼5 endirim'},
+};
+
 let cart={};
 let activeCat='hamısı';
 let searchQ='';
+let appliedDiscount=null;
+
+function getSubtotal(){
+  return Object.keys(cart).reduce((s,k)=>{
+    const p=products.find(x=>x.id==k);
+    return s+(p?p.price*cart[k]:0);
+  },0);
+}
+
+function getDiscount(sub){
+  if(!appliedDiscount) return 0;
+  const d=DISCOUNT_CODES[appliedDiscount];
+  if(d.type==='percent') return sub*(d.val/100);
+  return Math.min(d.val,sub);
+}
+
+function getTotal(){
+  const sub=getSubtotal();
+  return sub-getDiscount(sub);
+}
 
 function renderGrid(list){
   const g=document.getElementById('products-grid');
@@ -227,9 +421,10 @@ function renderGrid(list){
     const btnHtml=inCart
       ?`<div class="qty-ctrl"><button class="qty-btn" onclick="changeQty(event,${p.id},-1)">&#8722;</button><span class="qty-num">${qty}</span><button class="qty-btn" onclick="changeQty(event,${p.id},1)">+</button></div>`
       :`<button class="add-btn" onclick="addToCart(event,${p.id})">+</button>`;
-    return `<div class="prod-card${inCart?' in-cart':''}" id="pc-${p.id}">
+    return `<div class="prod-card${inCart?' in-cart':''}" id="pc-${p.id}" onclick="openPopup(${p.id})">
       <div class="badge-wrap">${badgeHtml}</div>
-      <div class="prod-img">${p.img ? `<img src="${p.img}" style="max-width:100%;max-height:130px;object-fit:contain;">` : p.emoji}</div>
+      <div class="prod-img"><img src="${p.img}" style="max-width:100%;max-height:90px;object-fit:contain;"></div>
+      <div style="padding:10px">
         <div class="prod-name">${p.name}</div>
         <div class="prod-sub">${p.sub}</div>
         <div class="prod-foot"><div class="price-wrap">${priceHtml}</div>${btnHtml}</div>
@@ -297,27 +492,39 @@ function renderCartDrawer(){
   const keys=Object.keys(cart).filter(k=>cart[k]>0);
   const itemsEl=document.getElementById('cart-items');
   const footEl=document.getElementById('cart-foot');
+  const discountSection=document.getElementById('discount-section');
   if(!keys.length){
     itemsEl.innerHTML='<div class="empty-cart"><div>🛒</div><p>Səbət boşdur</p></div>';
     footEl.style.display='none';
+    discountSection.style.display='none';
     return;
   }
-  let total=0;
+  const sub=getSubtotal();
+  const disc=getDiscount(sub);
+  const total=sub-disc;
   itemsEl.innerHTML=keys.map(k=>{
     const p=products.find(x=>x.id==k);
-    const sub=p.price*cart[k];
-    total+=sub;
+    const s=p.price*cart[k];
     return `<div class="cart-item">
-      <div class="ci-emoji">${p.emoji}</div>
+      <div class="ci-emoji"><img src="${p.img}" style="max-width:100%;max-height:100%;object-fit:contain"></div>
       <div class="ci-info">
         <div class="ci-name">${p.name}</div>
         <div class="ci-qty">${cart[k]} &times; &#8380; ${p.price.toFixed(2)}</div>
-        <div class="ci-price">&#8380; ${sub.toFixed(2)}</div>
+        <div class="ci-price">&#8380; ${s.toFixed(2)}</div>
       </div>
       <button class="ci-del" onclick="removeItem(${k})">&#10005;</button>
     </div>`;
   }).join('');
+  document.getElementById('cart-subtotal').textContent='&#8380; '+sub.toFixed(2);
   document.getElementById('cart-total').textContent='&#8380; '+total.toFixed(2);
+  const dl=document.getElementById('discount-line');
+  if(disc>0){
+    dl.style.display='flex';
+    document.getElementById('discount-amount-show').textContent='-&#8380; '+disc.toFixed(2);
+  } else {
+    dl.style.display='none';
+  }
+  discountSection.style.display='block';
   footEl.style.display='block';
 }
 
@@ -326,6 +533,147 @@ function removeItem(id){
   updateCartCount();
   renderGrid(getFiltered());
   renderCartDrawer();
+}
+
+function applyDiscount(){
+  const code=document.getElementById('discount-inp').value.trim().toUpperCase();
+  const inp=document.getElementById('discount-inp');
+  const msg=document.getElementById('discount-msg');
+  if(DISCOUNT_CODES[code]){
+    appliedDiscount=code;
+    inp.classList.add('success');
+    inp.classList.remove('error');
+    msg.className='discount-msg ok';
+    msg.textContent='✓ '+DISCOUNT_CODES[code].label+' tətbiq edildi!';
+    renderCartDrawer();
+  } else {
+    appliedDiscount=null;
+    inp.classList.add('error');
+    inp.classList.remove('success');
+    msg.className='discount-msg err';
+    msg.textContent='✗ Kod tapılmadı';
+    renderCartDrawer();
+  }
+}
+
+// PRODUCT POPUP
+function openPopup(id){
+  const p=products.find(x=>x.id===id);
+  if(!p) return;
+  document.getElementById('popup-img').src=p.img;
+  document.getElementById('popup-name').textContent=p.name;
+  document.getElementById('popup-sub').textContent=p.sub;
+  document.getElementById('popup-desc').textContent=p.desc||'';
+  const oldEl=document.getElementById('popup-price-old');
+  const newEl=document.getElementById('popup-price-new');
+  if(p.old){
+    oldEl.textContent='₼ '+p.old.toFixed(2);
+    newEl.className='popup-price-new sale';
+  } else {
+    oldEl.textContent='';
+    newEl.className='popup-price-new';
+  }
+  newEl.textContent='₼ '+p.price.toFixed(2);
+  let badges='';
+  if(p.badge==='sale') badges='<span class="badge-sale">Endirim</span>';
+  else if(p.badge==='new') badges='<span class="badge-new">Yeni</span>';
+  else if(p.badge==='hot') badges='<span class="badge-hot">Populyar</span>';
+  document.getElementById('popup-badges').innerHTML=badges;
+  renderPopupBtn(id);
+  document.getElementById('popup-overlay').classList.add('show');
+}
+
+function renderPopupBtn(id){
+  const inCart=cart[id]&&cart[id]>0;
+  const qty=cart[id]||0;
+  const wrap=document.getElementById('popup-btn-wrap');
+  if(inCart){
+    wrap.innerHTML=`<div class="popup-qty-ctrl"><button class="popup-qty-btn" onclick="popupChangeQty(${id},-1)">&#8722;</button><span class="popup-qty-num">${qty}</span><button class="popup-qty-btn" onclick="popupChangeQty(${id},1)">+</button></div>`;
+  } else {
+    wrap.innerHTML=`<button class="popup-add-btn" onclick="popupAddToCart(${id})">+ Səbətə əlavə et</button>`;
+  }
+}
+
+function popupAddToCart(id){
+  cart[id]=(cart[id]||0)+1;
+  updateCartCount();
+  renderGrid(getFiltered());
+  renderPopupBtn(id);
+}
+
+function popupChangeQty(id,delta){
+  cart[id]=(cart[id]||0)+delta;
+  if(cart[id]<=0) delete cart[id];
+  updateCartCount();
+  renderGrid(getFiltered());
+  renderPopupBtn(id);
+}
+
+function closePopup(e){
+  if(e.target===document.getElementById('popup-overlay')) closePopupDirect();
+}
+
+function closePopupDirect(){
+  document.getElementById('popup-overlay').classList.remove('show');
+}
+
+// ORDER FORM
+function openOrder(){
+  const keys=Object.keys(cart).filter(k=>cart[k]>0);
+  if(!keys.length) return;
+  const sub=getSubtotal();
+  const disc=getDiscount(sub);
+  const total=sub-disc;
+  let itemsHtml=keys.map(k=>{
+    const p=products.find(x=>x.id==k);
+    return `<div class="order-summary-item"><span>${p.name} x${cart[k]}</span><span>&#8380; ${(p.price*cart[k]).toFixed(2)}</span></div>`;
+  }).join('');
+  document.getElementById('order-summary-items').innerHTML=itemsHtml;
+  const discLine=document.getElementById('order-discount-line');
+  if(disc>0){
+    discLine.style.display='flex';
+    document.getElementById('order-discount-val').textContent='-₼ '+disc.toFixed(2);
+  } else {
+    discLine.style.display='none';
+  }
+  document.getElementById('order-total-val').textContent='₼ '+total.toFixed(2);
+  closeCart();
+  document.getElementById('order-overlay').classList.add('show');
+}
+
+function closeOrder(){
+  document.getElementById('order-overlay').classList.remove('show');
+}
+
+function submitOrder(){
+  const name=document.getElementById('f-name').value.trim();
+  const surname=document.getElementById('f-surname').value.trim();
+  const phone=document.getElementById('f-phone').value.trim();
+  const address=document.getElementById('f-address').value.trim();
+  let ok=true;
+  ['f-name','f-surname','f-phone','f-address'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(!el.value.trim()){el.classList.add('err');ok=false;}
+    else el.classList.remove('err');
+  });
+  if(!ok) return;
+  closeOrder();
+  document.getElementById('success-overlay').classList.add('show');
+  cart={};
+  appliedDiscount=null;
+  updateCartCount();
+  renderGrid(getFiltered());
+  document.getElementById('f-name').value='';
+  document.getElementById('f-surname').value='';
+  document.getElementById('f-phone').value='';
+  document.getElementById('f-address').value='';
+  document.getElementById('f-note').value='';
+  document.getElementById('discount-inp').value='';
+  document.getElementById('discount-msg').textContent='';
+}
+
+function closeSuccess(){
+  document.getElementById('success-overlay').classList.remove('show');
 }
 
 renderGrid(products);
