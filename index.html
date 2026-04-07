@@ -25,6 +25,9 @@
     .nav-right{display:flex;align-items:center;gap:10px;margin-left:auto}
     .cart-btn{display:flex;align-items:center;gap:7px;padding:7px 14px;background:var(--red);border:none;border-radius:6px;color:white;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;cursor:pointer}
     .cart-count{background:white;color:var(--red);border-radius:50%;width:18px;height:18px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800}
+    .admin-nav-btn{display:flex;align-items:center;gap:6px;padding:7px 12px;background:#222;border:1.5px solid #444;border-radius:6px;color:white;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;cursor:pointer}
+    .admin-nav-btn:hover{background:#333}
+    .admin-badge{background:var(--red);color:white;border-radius:50%;width:16px;height:16px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800}
 
     .hero{background:var(--blk);padding:1.2rem 1.5rem;display:flex;align-items:center;gap:1rem;overflow:hidden;position:relative}
     .hero::before{content:'';position:absolute;right:-60px;top:-60px;width:220px;height:220px;border-radius:50%;background:rgba(224,16,16,.12)}
@@ -89,7 +92,6 @@
     .ci-del{width:24px;height:24px;border:1px solid var(--gray2);border-radius:5px;background:white;cursor:pointer;font-size:14px;color:#bbb}
     .ci-del:hover{border-color:var(--red);color:var(--red)}
 
-    /* DISCOUNT CODE */
     .discount-wrap{padding:.8rem 1.2rem;border-top:1px solid var(--gray2);flex-shrink:0}
     .discount-row{display:flex;gap:6px}
     .discount-input{flex:1;padding:8px 10px;border:1.5px solid var(--gray2);border-radius:6px;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:600;outline:none}
@@ -159,6 +161,7 @@
     .order-summary-discount{display:none;justify-content:space-between;font-size:12px;font-weight:700;color:#22c55e;padding:3px 0}
     .form-group{margin-bottom:14px}
     .form-label{font-size:11px;font-weight:700;color:var(--blk);text-transform:uppercase;letter-spacing:.3px;margin-bottom:5px;display:block}
+    .form-label .req{color:var(--red)}
     .form-input{width:100%;padding:10px 12px;border:1.5px solid var(--gray2);border-radius:8px;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:500;outline:none;transition:border .15s}
     .form-input:focus{border-color:var(--blk)}
     .form-input.err{border-color:var(--red)}
@@ -174,6 +177,35 @@
     .success-title{font-size:18px;font-weight:900;color:var(--blk);margin-bottom:6px}
     .success-sub{font-size:12px;color:var(--gt);font-weight:500;margin-bottom:20px;line-height:1.6}
     .success-close-btn{padding:12px 32px;background:var(--red);border:none;border-radius:8px;color:white;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:800;cursor:pointer}
+
+    /* ADMIN PANEL */
+    .admin-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:600;align-items:flex-start;justify-content:center;padding:1rem;overflow-y:auto}
+    .admin-overlay.show{display:flex}
+    .admin-modal{background:white;border-radius:14px;width:100%;max-width:900px;margin:auto;overflow:hidden;animation:slideUp .2s ease}
+    .admin-head{padding:1.2rem 1.6rem;background:var(--blk);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:1}
+    .admin-title{font-size:16px;font-weight:800;color:white;letter-spacing:.5px}
+    .admin-subtitle{font-size:11px;color:#aaa;font-weight:500;margin-top:2px}
+    .admin-close{width:32px;height:32px;border:1.5px solid #444;border-radius:6px;background:transparent;color:white;cursor:pointer;font-size:16px;font-weight:700}
+    .admin-close:hover{background:#333}
+    .admin-body{padding:1.4rem 1.6rem}
+    .admin-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:1.6rem}
+    .stat-card{background:var(--gray);border-radius:10px;padding:14px 16px}
+    .stat-label{font-size:10px;font-weight:700;color:var(--gt);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+    .stat-val{font-size:22px;font-weight:900;color:var(--blk)}
+    .stat-val.red{color:var(--red)}
+    .orders-table-wrap{overflow-x:auto}
+    .orders-table{width:100%;border-collapse:collapse;font-size:12px}
+    .orders-table th{background:var(--blk);color:white;padding:10px 12px;text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;white-space:nowrap}
+    .orders-table td{padding:10px 12px;border-bottom:1px solid var(--gray2);color:var(--blk);font-weight:500;vertical-align:top}
+    .orders-table tr:hover td{background:var(--gray)}
+    .order-num{font-weight:800;color:var(--red)}
+    .order-status{display:inline-block;padding:3px 8px;border-radius:4px;font-size:9px;font-weight:800;text-transform:uppercase;background:#dcfce7;color:#15803d}
+    .order-items-list{font-size:11px;color:var(--gt);line-height:1.6}
+    .empty-admin{text-align:center;padding:3rem;color:var(--gt)}
+    .empty-admin div{font-size:40px;margin-bottom:8px}
+    .empty-admin p{font-size:13px;font-weight:600}
+    .admin-clear-btn{padding:8px 16px;background:transparent;border:1.5px solid #ddd;border-radius:6px;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;color:var(--gt);cursor:pointer}
+    .admin-clear-btn:hover{border-color:var(--red);color:var(--red)}
   </style>
 </head>
 <body>
@@ -221,20 +253,24 @@
       </div>
       <div class="form-row">
         <div class="form-group">
-          <label class="form-label">Ad</label>
+          <label class="form-label">Ad <span class="req">*</span></label>
           <input class="form-input" id="f-name" placeholder="Adınız">
         </div>
         <div class="form-group">
-          <label class="form-label">Soyad</label>
+          <label class="form-label">Soyad <span class="req">*</span></label>
           <input class="form-input" id="f-surname" placeholder="Soyadınız">
         </div>
       </div>
       <div class="form-group">
-        <label class="form-label">Telefon</label>
+        <label class="form-label">E-mail <span class="req">*</span></label>
+        <input class="form-input" id="f-email" placeholder="ornek@mail.com" type="email">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Telefon <span class="req">*</span></label>
         <input class="form-input" id="f-phone" placeholder="+994 XX XXX XX XX" type="tel">
       </div>
       <div class="form-group">
-        <label class="form-label">Ünvan</label>
+        <label class="form-label">Ünvan <span class="req">*</span></label>
         <input class="form-input" id="f-address" placeholder="Çatdırılma ünvanı">
       </div>
       <div class="form-group">
@@ -251,8 +287,28 @@
   <div class="success-modal">
     <div class="success-icon">🎉</div>
     <div class="success-title">Sifariş qəbul edildi!</div>
-    <div class="success-sub">Tezliklə sizinlə əlaqə saxlayacağıq.<br>Alış-verişiniz üçün təşəkkür edirik!</div>
+    <div class="success-sub" id="success-sub">Tezliklə sizinlə əlaqə saxlayacağıq.<br>Alış-verişiniz üçün təşəkkür edirik!</div>
     <button class="success-close-btn" onclick="closeSuccess()">Əla!</button>
+  </div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div class="admin-overlay" id="admin-overlay">
+  <div class="admin-modal">
+    <div class="admin-head">
+      <div>
+        <div class="admin-title">🔐 Admin Panel — Sifarişlər</div>
+        <div class="admin-subtitle">Maddiall Market — bütün sifarişlər</div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <button class="admin-clear-btn" onclick="clearOrders()">Təmizlə</button>
+        <button class="admin-close" onclick="closeAdmin()">✕</button>
+      </div>
+    </div>
+    <div class="admin-body">
+      <div class="admin-stats" id="admin-stats"></div>
+      <div class="orders-table-wrap" id="admin-table-wrap"></div>
+    </div>
   </div>
 </div>
 
@@ -264,6 +320,10 @@
     <input class="search-input" placeholder="Məhsul axtar..." id="search-inp" oninput="filterProducts()">
   </div>
   <div class="nav-right">
+    <button class="admin-nav-btn" onclick="openAdmin()">
+      🔐 Admin
+      <span class="admin-badge" id="admin-order-count">0</span>
+    </button>
     <button class="cart-btn" onclick="openCart()">
       <svg width="14" height="14" fill="none" stroke="white" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
       Səbət <span class="cart-count" id="cart-count">0</span>
@@ -381,6 +441,8 @@ let cart={};
 let activeCat='hamısı';
 let searchQ='';
 let appliedDiscount=null;
+let orders=[];
+let orderCounter=1;
 
 function getSubtotal(){
   return Object.keys(cart).reduce((s,k)=>{
@@ -515,12 +577,12 @@ function renderCartDrawer(){
       <button class="ci-del" onclick="removeItem(${k})">&#10005;</button>
     </div>`;
   }).join('');
-  document.getElementById('cart-subtotal').textContent='&#8380; '+sub.toFixed(2);
-  document.getElementById('cart-total').textContent='&#8380; '+total.toFixed(2);
+  document.getElementById('cart-subtotal').textContent='₼ '+sub.toFixed(2);
+  document.getElementById('cart-total').textContent='₼ '+total.toFixed(2);
   const dl=document.getElementById('discount-line');
   if(disc>0){
     dl.style.display='flex';
-    document.getElementById('discount-amount-show').textContent='-&#8380; '+disc.toFixed(2);
+    document.getElementById('discount-amount-show').textContent='-₼ '+disc.toFixed(2);
   } else {
     dl.style.display='none';
   }
@@ -648,26 +710,63 @@ function closeOrder(){
 function submitOrder(){
   const name=document.getElementById('f-name').value.trim();
   const surname=document.getElementById('f-surname').value.trim();
+  const email=document.getElementById('f-email').value.trim();
   const phone=document.getElementById('f-phone').value.trim();
   const address=document.getElementById('f-address').value.trim();
+  const note=document.getElementById('f-note').value.trim();
+
   let ok=true;
-  ['f-name','f-surname','f-phone','f-address'].forEach(id=>{
+  ['f-name','f-surname','f-email','f-phone','f-address'].forEach(id=>{
     const el=document.getElementById(id);
     if(!el.value.trim()){el.classList.add('err');ok=false;}
     else el.classList.remove('err');
   });
+
+  // Basic email validation
+  if(email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+    document.getElementById('f-email').classList.add('err');
+    ok=false;
+  }
+
   if(!ok) return;
+
+  const sub=getSubtotal();
+  const disc=getDiscount(sub);
+  const total=sub-disc;
+
+  const orderItems=Object.keys(cart).filter(k=>cart[k]>0).map(k=>{
+    const p=products.find(x=>x.id==k);
+    return {name:p.name,qty:cart[k],price:p.price,total:(p.price*cart[k]).toFixed(2)};
+  });
+
+  const now=new Date();
+  const dateStr=now.toLocaleDateString('az-AZ')+' '+now.toLocaleTimeString('az-AZ',{hour:'2-digit',minute:'2-digit'});
+
+  const order={
+    id: orderCounter++,
+    date: dateStr,
+    name, surname, email, phone, address, note,
+    items: orderItems,
+    subtotal: sub.toFixed(2),
+    discount: disc.toFixed(2),
+    total: total.toFixed(2),
+    discountCode: appliedDiscount||null,
+  };
+
+  orders.unshift(order);
+  updateAdminBadge();
+
   closeOrder();
+  document.getElementById('success-sub').innerHTML=`Sifariş #${order.id} uğurla qəbul edildi!<br>Tezliklə <strong>${email}</strong> ünvanına təsdiq göndərəcəyik.<br>Alış-verişiniz üçün təşəkkür edirik!`;
   document.getElementById('success-overlay').classList.add('show');
+
   cart={};
   appliedDiscount=null;
   updateCartCount();
   renderGrid(getFiltered());
-  document.getElementById('f-name').value='';
-  document.getElementById('f-surname').value='';
-  document.getElementById('f-phone').value='';
-  document.getElementById('f-address').value='';
-  document.getElementById('f-note').value='';
+  ['f-name','f-surname','f-email','f-phone','f-address','f-note'].forEach(id=>{
+    document.getElementById(id).value='';
+  });
   document.getElementById('discount-inp').value='';
   document.getElementById('discount-msg').textContent='';
 }
@@ -676,6 +775,97 @@ function closeSuccess(){
   document.getElementById('success-overlay').classList.remove('show');
 }
 
+// ADMIN PANEL
+function updateAdminBadge(){
+  document.getElementById('admin-order-count').textContent=orders.length;
+}
+
+function openAdmin(){
+  renderAdmin();
+  document.getElementById('admin-overlay').classList.add('show');
+}
+
+function closeAdmin(){
+  document.getElementById('admin-overlay').classList.remove('show');
+}
+
+function clearOrders(){
+  if(orders.length===0) return;
+  if(confirm('Bütün sifarişlər silinsin?')){
+    orders=[];
+    orderCounter=1;
+    updateAdminBadge();
+    renderAdmin();
+  }
+}
+
+function renderAdmin(){
+  const statsEl=document.getElementById('admin-stats');
+  const tableWrap=document.getElementById('admin-table-wrap');
+
+  const totalRevenue=orders.reduce((s,o)=>s+parseFloat(o.total),0);
+  const totalItems=orders.reduce((s,o)=>s+o.items.reduce((si,i)=>si+i.qty,0),0);
+
+  statsEl.innerHTML=`
+    <div class="stat-card">
+      <div class="stat-label">Ümumi Sifariş</div>
+      <div class="stat-val red">${orders.length}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Ümumi Gəlir</div>
+      <div class="stat-val">₼ ${totalRevenue.toFixed(2)}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Satılan Məhsul</div>
+      <div class="stat-val">${totalItems} ədəd</div>
+    </div>
+  `;
+
+  if(!orders.length){
+    tableWrap.innerHTML='<div class="empty-admin"><div>📋</div><p>Hələ heç bir sifariş yoxdur</p></div>';
+    return;
+  }
+
+  tableWrap.innerHTML=`
+    <table class="orders-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Tarix</th>
+          <th>Müştəri</th>
+          <th>E-mail</th>
+          <th>Telefon</th>
+          <th>Ünvan</th>
+          <th>Məhsullar</th>
+          <th>Cəmi</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${orders.map(o=>`
+          <tr>
+            <td><span class="order-num">#${o.id}</span></td>
+            <td style="white-space:nowrap;font-size:11px;color:var(--gt)">${o.date}</td>
+            <td style="white-space:nowrap"><strong>${o.name} ${o.surname}</strong></td>
+            <td style="color:#2563eb;font-size:11px">${o.email}</td>
+            <td style="white-space:nowrap;font-size:11px">${o.phone}</td>
+            <td style="font-size:11px;max-width:120px">${o.address}${o.note?'<br><span style="color:var(--gt)">📝 '+o.note+'</span>':''}</td>
+            <td>
+              <div class="order-items-list">
+                ${o.items.map(i=>`${i.name} ×${i.qty} — ₼${i.total}`).join('<br>')}
+                ${o.discountCode?`<span style="color:#22c55e;font-size:10px">🏷️ ${o.discountCode} (-₼${o.discount})</span>`:''}
+              </div>
+            </td>
+            <td style="white-space:nowrap"><strong style="color:var(--red)">₼ ${o.total}</strong></td>
+            <td><span class="order-status">✓ Qəbul</span></td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+  `;
+}
+
+updateAdminBadge();
 renderGrid(products);
 </script>
 </body>
